@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InterviewAI Pro - Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+    <h1>🤖 InterviewAI Pro</h1>
+
+    <h2>Welcome 👋</h2>
+
+    <h3>Dashboard</h3>
+    <div class="cards">
+
+    <div class="card">
+        <h3>Interview Type</h3>
+        <p id="interviewType">-</p>
+    </div>
+
+    <div class="card">
+        <h3>Job Role</h3>
+        <p id="jobRole">-</p>
+    </div>
+
+    <div class="card">
+        <h3>Latest Score</h3>
+        <p id="scoreCard">0%</p>
+    </div>
+
+    <div class="card">
+        <h3>Total Interviews</h3>
+        <p id="totalInterviews">0</p>
+    </div>
+
+</div>
+    <p><strong>Interview Type:</strong> <span id="interviewType2">-</span></p>
+
+<p><strong>Job Role:</strong> <span id="jobRole2">-</span></p>
+
+<p><strong>Date:</strong> <span id="interviewDate">-</span></p>
+
+    <p><strong>Latest Interview Result:</strong></p>
+
+<div id="latestResult">
+    <h2 id="scoreCard">0%</h2>
+</div>
+
+<hr>
+
+<p><strong>Total Interviews:</strong> <span id="totalInterviews">0</span></p>
+<p><strong>Average Score:</strong> <span id="averageScore">0%</span></p>
+<p><strong>Best Score:</strong> <span id="bestScore">0%</span></p>
+    <br>
+
+    <button onclick="window.location.href='index.html'">
+    🚀 Start New Interview
+</button>
+
+    <br><br>
+    <h3>Recent Interviews</h3>
+
+<table border="1" width="100%" id="historyTable">
+    <thead>
+        <tr>
+            <th>Interview Type</th>
+            <th>Job Role</th>
+            <th>Score</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+
+    <tbody id="historyBody">
+
+    </tbody>
+</table>
+
+<script>
+const score = localStorage.getItem("latestScore") || "0";
+document.getElementById("scoreCard").innerText = score + "%";
+
+const result = localStorage.getItem("latestFeedback");
+
+if (result) {
+    document.getElementById("latestResult").innerText = result;
+
+    const match = result.match(/SCORE:\s*(\d+)/i);
+
+    if (match) {
+        const score = Number(match[1]);
+
+        let best = Number(localStorage.getItem("bestScore")) || 0;
+
+        if (score > best) {
+            best = score;
+            localStorage.setItem("bestScore", best);
+        }
+
+        document.getElementById("bestScore").innerText = best + "%";
+    }
+}
+
+let total = Number(localStorage.getItem("totalInterviews")) || 0;
+document.getElementById("totalInterviews").innerText = total;
+
+// 👇 Add this here
+const history = JSON.parse(localStorage.getItem("history")) || [];
+
+const historyBody = document.getElementById("historyBody");
+
+historyBody.innerHTML = "";
+
+let totalScore = 0;
+
+history.forEach((item) => {
+
+    totalScore += Number(item.score);
+
+    historyBody.innerHTML += `
+        <tr>
+            <td>${item.type}</td>
+            <td>${item.role}</td>
+            <td>${item.score}%</td>
+            <td>${item.date}</td>
+        </tr>
+    `;
+});
+
+if (history.length > 0) {
+    document.getElementById("averageScore").innerText =
+        Math.round(totalScore / history.length) + "%";
+} else {
+    document.getElementById("averageScore").innerText = "0%";
+}
+const type = localStorage.getItem("interviewType") || "-";
+const role = localStorage.getItem("selectedRole") || "-";
+
+document.getElementById("interviewType").innerText = type;
+document.getElementById("interviewType2").innerText = type;
+
+document.getElementById("jobRole").innerText = role;
+document.getElementById("jobRole2").innerText = role;
+
+const interviewHistory = JSON.parse(localStorage.getItem("history")) || [];
+
+if (interviewHistory.length > 0) {
+    document.getElementById("interviewDate").innerText =
+        interviewHistory[0].date;
+}
+// Display interview type
+document.getElementById("interviewType").innerText =
+    localStorage.getItem("interviewType") || "-";
+
+// Display job role
+document.getElementById("jobRole").innerText =
+    localStorage.getItem("selectedRole") || "-";
+
+// Display latest score
+const latestScore = localStorage.getItem("latestScore") || "0";
+document.getElementById("scoreCard").innerText = latestScore + "%";
+</script>
+
+
+</body>
+</html>

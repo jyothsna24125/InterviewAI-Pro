@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InterviewAI pro</title>
+    <!-- Links to your CSS structured folders -->
+    <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 1. Setup / Configuration Screen -->
+        <section id="setupScreen" class="screen">
+            <h1>InterviewAI pro</h1>
+            <p>Practice Technical, HR, and Mock Interviews powered by Artificial Intelligence.</p>
+            <div class="form-group">
+                <h3>Select Interview Type</h3>
+
+<select id="interviewType">
+    <option value="Technical">Technical Interview</option>
+    <option value="HR">HR Interview</option>
+    <option value="Mock">Mock Interview</option>
+    <option value="Managerial">Managerial Interview</option>
+</select>
+
+<br><br>
+
+<h3>Select Job Role</h3>
+
+<select id="jobRole">
+    <option value="Frontend Engineer">Frontend Engineer</option>
+    <option value="Backend Developer">Backend Developer</option>
+    <option value="Fullstack Developer">Fullstack Developer</option>
+    <option value="Data Analyst">Data Analyst</option>
+    <option value="Java Developer">Java Developer</option>
+    <option value="Python Developer">Python Developer</option>
+</select>
+            </div>
+            
+            <button id="startInterviewBtn" class="btn primary-btn">Start Interview Session</button>
+        </section>
+
+        <!-- 2. Active Live Interview Workspace -->
+        <section id="interviewScreen" class="screen hidden">
+            <div class="workspace-grid">
+                <!-- Media Panel (Webcam Stream & Live Visual Indicators) -->
+                <div class="media-panel">
+                    <div class="video-container">
+                        <video id="webcamPreview" autoplay playsinline muted></video>
+                        <div class="live-badge">● LIVE PROCTORING</div>
+                    </div>
+                    <div class="timer-box">
+                        Time Remaining: <span id="timeCounter">02:00</span>
+                    </div>
+                </div>
+
+                <!-- Q&A Interaction Panel -->
+                <div class="qa-panel">
+                    <div class="question-card">
+                        <h3>Question Prompt:</h3>
+                        <p id="questionContent">Initializing AI interviewer instance...</p>
+                    </div>
+                    
+                    <div class="response-container">
+                        <label for="userTextResponse">Your Answer:</label>
+                        <textarea id="userTextResponse" placeholder="Your live voice transcription or typed answer will appear here..."></textarea>
+                        
+                        <div class="control-actions">
+                            <button id="toggleVoiceBtn" class="btn secondary-btn">🎤 Start Voice Input</button>
+                            <button id="submitAnswerBtn" class="btn success-btn">Submit Answer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Performance Review Dashboard -->
+        <section id="resultsScreen" class="screen hidden">
+            <h2>Interview Performance Dashboard</h2>
+            <div class="results-grid">
+                <div class="score-card">
+                    <h3>Overall Evaluation Score</h3>
+                    <div id="scoreDisplay">--/100</div>
+                </div> 
+                <div class="feedback-card">
+                    <h3>AI Feedback & Optimization Strategy</h3>
+                    <p id="feedbackContent">Analyzing data logs...</p>
+                </div>
+            </div>
+            <button id="restartBtn" class="btn primary-btn">Start New Session</button>
+        </section>
+    </div>
+
+    <!-- Modular JS Engine Architecture scripts -->
+    <script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/media.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
